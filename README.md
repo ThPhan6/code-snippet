@@ -2,34 +2,35 @@
 
 A modern web platform where developers can share code snippets, organize them by language and topic, and analyze time complexity. Built with Next.js 15 and TailwindCSS 4.
 
-## Features
+## ✨ Features
 
 ### Core Features
 
-- 🔐 **Email/Password Authentication** - Secure user registration and login
+- 🔐 **JWT Authentication** - Secure user registration and login with JWT tokens
 - ✏️ **Full CRUD Operations** - Create, read, update, and delete code snippets
 - 🏷️ **Language & Topic Organization** - Snippets organized by programming language, with titles as topics
 - 👤 **Public User Profiles** - Showcase your snippets with shareable profile pages
-- 🔗 **Shareable URLs** - Easy sharing for snippets, languages, and profiles
-- 🔍 **SEO Optimized** - Enhanced discoverability with meta tags and structured data
-- 🌍 **i18n Support** - Multi-language interface support
+- 🔗 **Shareable URLs** - Clean, SEO-friendly URLs for snippets, languages, and profiles
+- 🔍 **Advanced SEO** - Dynamic meta tags, structured data, and sitemap generation
+- 🌍 **i18n Support** - Multi-language interface support (English/Spanish)
 - 📱 **Mobile-First Design** - Fully responsive across all devices
+- 🎨 **Modern UI** - Beautiful interface with TailwindCSS 4
+- ⚡ **Algorithm Complexity Analyzer** - Get estimated time complexity analysis (O(n), O(n²), etc.)
 
-### Bonus Features
-
-- ⚡ **Algorithm Analyzer** - Get estimated time complexity analysis (O(n), O(n²), etc.)
-
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
-- **Styling**: [TailwindnpmCSS 4](https://tailwindcss.com/)
+- **Styling**: [TailwindCSS 4](https://tailwindcss.com/)
 - **Language**: TypeScript
-- **Database**: Prisma ORM with SQLite (dev) / PostgreSQL (prod)
-- **Authentication**: NextAuth.js v5
+- **Authentication**: JWT with jsonwebtoken
+- **Data Storage**: localStorage (client-side)
 - **Internationalization**: next-intl
+- **Code Highlighting**: Prism.js
+- **Forms**: React Hook Form + Zod validation
+- **Icons**: React Icons
 - **Deployment**: Vercel
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -38,29 +39,39 @@ A modern web platform where developers can share code snippets, organize them by
 
 ### Installation
 
-1. Clone the repository:
+1. **Clone the repository:**
 
 ```bash
 git clone <repository-url>
 cd code-snippets
 ```
 
-2. Install dependencies:
+2. **Install dependencies:**
 
 ```bash
 npm install
 ```
 
-3. Set up environment variables:
+3. **Set up environment variables:**
 
 Create a `.env.local` file in the project root:
 
 ```env
-NEXT_PUBLIC_JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+# Application URL (required for SEO and social sharing)
 NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# JWT Secret (change this in production!)
+NEXT_PUBLIC_JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+
+# Node Environment
+NODE_ENV=development
 ```
 
 > **Important:** Change the JWT_SECRET to a random, secure string in production!
+
+### Environment Configuration
+
+This project uses centralized environment configuration. See [ENVIRONMENT.md](./ENVIRONMENT.md) for detailed setup instructions.
 
 ### Running the Development Server
 
@@ -79,100 +90,113 @@ npm run build
 npm start
 ```
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 code-snippets/
-├── app/                    # Next.js app router
-│   ├── [locale]/          # i18n routing
-│   ├── api/               # API routes
-│   └── components/        # React components
-├── lib/                   # Utility functions and configurations
-├── prisma/                # Database schema and migrations
-├── messages/              # i18n translation files
-└── public/                # Static assets
+├── app/
+│   ├── dashboard/                 # User dashboard (protected)
+│   ├── languages/[language]/      # Language browsing pages
+│   ├── login/                     # Authentication pages
+│   ├── register/                  # User registration
+│   ├── profile/[username]/        # Public user profiles
+│   ├── snippets/                  # Snippet management
+│   │   ├── new/                   # Create new snippet
+│   │   ├── [id]/[slug]/           # View snippet (SEO-friendly URLs)
+│   │   └── [id]/edit/             # Edit snippet
+│   ├── sitemap.xml/               # Dynamic sitemap generation
+│   ├── robots.txt                 # SEO robots file
+│   ├── layout.tsx                 # Root layout with SEO
+│   └── page.tsx                   # Home page
+├── components/
+│   ├── auth/                      # Authentication components
+│   │   ├── LoginForm.tsx          # Login form
+│   │   └── RegisterForm.tsx       # Registration form
+│   ├── snippets/                  # Snippet components
+│   │   ├── SnippetCard.tsx        # Snippet display card
+│   │   └── SnippetForm.tsx        # Create/edit form
+│   ├── ui/                        # Reusable UI components
+│   │   ├── ComplexityAnalyzer.tsx # Algorithm complexity analyzer
+│   │   ├── LanguageBadge.tsx      # Language display badge
+│   │   ├── LanguageSelector.tsx   # Language selection
+│   │   └── ShareButton.tsx        # Social sharing button
+│   └── ErrorBoundary.tsx          # Error handling
+├── lib/                           # Core Utilities
+│   ├── analysis/                  # Algorithm analysis
+│   │   └── complexity-analyzer.ts # Time complexity analyzer
+│   ├── auth/                      # Authentication system
+│   │   ├── auth-context.tsx       # React context
+│   │   ├── auth-service.ts        # Auth business logic
+│   │   ├── jwt.ts                 # JWT utilities
+│   │   └── protected-route.tsx    # Route protection
+│   ├── config/                    # Configuration
+│   │   └── env.ts                 # Centralized environment config
+│   ├── data/                      # Data management
+│   │   ├── mock-data.ts           # Development mock data
+│   │   ├── storage.ts             # localStorage utilities
+│   │   └── types.ts               # TypeScript interfaces
+│   ├── i18n/                      # Internationalization
+│   │   ├── context.tsx            # i18n React context
+│   │   └── translations.ts         # Translation files
+│   ├── seo/                       # SEO optimization
+│   │   ├── metadata.ts            # Dynamic meta tags
+│   │   ├── structured-data.ts     # JSON-LD structured data
+│   │   └── sitemap.ts             # Sitemap generation
+│   ├── snippets/                 # Snippet management
+│   │   └── snippet-service.ts     # CRUD operations
+│   ├── utils/                     # Helper functions
+│   │   └── helpers.ts             # Utility functions
+│   ├── validations/               # Form validation
+│   │   └── schemas.ts             # Zod schemas
+│   └── init-app.ts               # App initialization
+├── messages/                      # i18n translation files
+├── public/                        # Static assets
+├── .env.local                     # Environment variables (create this)
+├── ENVIRONMENT.md                 # Environment setup guide
+├── requirements.md                # Project requirements
+└── README.md                      # This file
 ```
 
-## Data Structure
+## 📊 Data Structure
 
 All data is stored in browser localStorage:
 
 - **User**: Authentication and profile data
 - **Snippet**: Code snippets with metadata (language field + title as topic)
-- No separate Tag entity needed - snippets are filtered by language field
 
-### Default Credentials
+## 🔧 Development
 
-For testing, use these pre-seeded accounts:
+### Key Features Implemented
 
-- Email: `demo@example.com` | Password: `demo123`
-- Email: `john@example.com` | Password: `password123`
+- ✅ **JWT Authentication System** - Complete user registration and login
+- ✅ **CRUD Operations** - Full snippet management
+- ✅ **SEO Optimization** - Dynamic meta tags, structured data, sitemap
+- ✅ **Responsive Design** - Mobile-first approach
+- ✅ **Algorithm Analysis** - Time complexity analyzer
+- ✅ **Internationalization** - Multi-language support
+- ✅ **Environment Configuration** - Centralized config management
 
-## Development Roadmap
+### Available Scripts
 
-See [requirements.md](./requirements.md) for the complete implementation plan and project phases.
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+```
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
+### Development Guidelines
+
+1. Follow TypeScript best practices
+2. Use ESLint for code quality
+3. Maintain responsive design
+4. Test all functionality
+5. Update documentation
+
+## 📄 License
 
 MIT License - feel free to use this project for learning and development.
-
----
-
-## Original Requirements Summary
-
-**Project Objective**: Build a web platform where developers can share code snippets, tag them by language and topic, and get basic time complexity analysis.
-
-**Tech Stack**: Next.js + TailwindCSS
-
-**Core Features**:
-
-1. ✅ CRUD for code snippets (create, edit, delete)
-2. ✅ Tag snippets by languages and topic
-   - **Language** = `language` field (e.g., "JavaScript", "Python")
-   - **Topic** = `title` field (title represents the topic/subject)
-   - No complex Tag system needed!
-3. 🔄 Public user profile displaying shared snippets (Phase 4)
-4. 🔄 Shareable URLs for both snippets and languages (Phase 4)
-5. Basic SEO implementation (Phase 6)
-6. i18n support (Phase 7)
-7. ✅ Email/password-based user authentication
-8. Mobile-first, responsive design (at least one page) (Phase 8)
-
-**Bonus Features**:
-
-1. Add a simple algorithm analyzer to display estimated time complexity (e.g., O(n), O(n²)) (Phase 9)
-
----
-
-## Phase 4 Focus: Shareable URLs & Public Profiles
-
-Based on the original requirements, Phase 4 will implement:
-
-### 1. Shareable URLs
-
-- Clean, SEO-friendly URLs for snippets: `/snippets/[id]/[slug]`
-- Language browsing pages: `/languages/[language]`
-- Public profile URLs: `/profile/[username]`
-- Copy-to-clipboard share button
-- Social sharing metadata (Open Graph)
-
-### 2. Public User Profiles
-
-- Display user's public snippets
-- Show user statistics (snippet count, languages used, join date)
-- Grid/list view for snippets
-- Mobile-responsive design
-- Shareable profile links
-
-### 3. Language Pages
-
-- Browse all public snippets by language
-- Filter and sort options
-- Language statistics
-- Shareable language URLs
-
-**Note**: Inspired by platforms like [Codefile.io](https://codefile.io), where developers can easily share and showcase their code snippets with clean, shareable URLs.
