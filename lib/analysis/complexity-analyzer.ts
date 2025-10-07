@@ -32,7 +32,7 @@ interface Pattern {
   confidence: number;
 }
 
-function detectPatterns(code: string, language: string): Pattern[] {
+function detectPatterns(code: string, _language: string): Pattern[] {
   const patterns: Pattern[] = [];
   const codeLines = code.split("\n");
 

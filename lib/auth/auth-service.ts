@@ -137,7 +137,7 @@ export const login = (email: string, userPassword: string): AuthResponse => {
     saveAuthToken(token);
 
     // Return user without password
-    const { password, ...userWithoutPassword } = user;
+    const { password: _, ...userWithoutPassword } = user;
 
     return {
       success: true,
@@ -182,7 +182,7 @@ export const getCurrentUser = (): Omit<User, "password"> | null => {
     }
 
     // Return user without password
-    const { password, ...userWithoutPassword } = user;
+    const { password: _, ...userWithoutPassword } = user;
     return userWithoutPassword;
   } catch (error) {
     console.error("Get current user error:", error);

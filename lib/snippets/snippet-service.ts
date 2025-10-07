@@ -208,7 +208,7 @@ export const getSnippetsWithAuthors = (options?: {
       if (!author) return null;
 
       // Remove password from author object
-      const { password: _, ...authorWithoutPassword } = author;
+      const { password, ...authorWithoutPassword } = author;
 
       return {
         ...snippet,
