@@ -12,7 +12,7 @@ import {
   getComplexityColor,
 } from "../../lib/utils/helpers";
 import ShareButton from "../ui/ShareButton";
-import { useI18n } from "../../lib/i18n/context";
+// import { useI18n } from "../../lib/i18n/context";
 
 interface SnippetCardProps {
   snippet: Snippet;
@@ -29,7 +29,6 @@ export const SnippetCard: React.FC<SnippetCardProps> = ({
   onEdit,
   onDelete,
 }) => {
-  const { t } = useI18n();
   const timeAgo = formatDistanceToNow(new Date(snippet.createdAt), {
     addSuffix: true,
   });

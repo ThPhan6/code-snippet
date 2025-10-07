@@ -104,6 +104,7 @@ export const SnippetForm: React.FC<SnippetFormProps> = ({
     handleSubmit,
     formState: { errors },
     watch,
+    setValue,
   } = useForm<SnippetFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -268,7 +269,7 @@ export const SnippetForm: React.FC<SnippetFormProps> = ({
           onAnalysisComplete={(complexity: string) => {
             // Auto-fill time complexity if not set
             if (!watch("timeComplexity")) {
-              // This would need to be handled in the form
+              setValue("timeComplexity", complexity);
             }
           }}
         />

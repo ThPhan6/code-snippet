@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   analyzeComplexity,
   getComplexityColor,
   getComplexityDescription,
+  ComplexityAnalysis,
 } from "@/lib/analysis/complexity-analyzer";
 import { useI18n } from "@/lib/i18n/context";
 
@@ -20,16 +21,10 @@ export const ComplexityAnalyzer: React.FC<ComplexityAnalyzerProps> = ({
   onAnalysisComplete,
 }) => {
   const { t } = useI18n();
-  const [analysis, setAnalysis] = useState<any>(null);
+  const [analysis, setAnalysis] = useState<ComplexityAnalysis | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
-  useEffect(() => {
-    if (code && language) {
-      analyzeCode();
-    }
-  }, [code, language]);
-
-  const analyzeCode = async () => {
+  const analyzeCode = useCallback(async () => {
     setIsAnalyzing(true);
     try {
       const result = analyzeComplexity(code, language);
@@ -42,7 +37,13 @@ export const ComplexityAnalyzer: React.FC<ComplexityAnalyzerProps> = ({
     } finally {
       setIsAnalyzing(false);
     }
-  };
+  }, [code, language, onAnalysisComplete]);
+
+  useEffect(() => {
+    if (code && language) {
+      analyzeCode();
+    }
+  }, [code, language, analyzeCode]);
 
   if (!analysis && !isAnalyzing) {
     return null;

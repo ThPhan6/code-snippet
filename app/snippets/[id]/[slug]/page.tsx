@@ -27,10 +27,9 @@ import {
 } from "@/lib/utils/helpers";
 import ShareButton from "@/components/ui/ShareButton";
 import LanguageBadge from "@/components/ui/LanguageBadge";
-import { useI18n } from "@/lib/i18n/context";
+// import { useI18n } from "@/lib/i18n/context";
 
 export default function SnippetDetailPage() {
-  const { t } = useI18n();
   const params = useParams();
   const router = useRouter();
   const snippetId = params.id as string;
@@ -309,7 +308,7 @@ export default function SnippetDetailPage() {
                 Delete Snippet?
               </h3>
               <p className="text-gray-600 mb-6">
-                Are you sure you want to delete "{snippet.title}"? This action
+                Are you sure you want to delete &quot;{snippet.title}&quot;? This action
                 cannot be undone.
               </p>
               <div className="flex items-center gap-3 justify-end">
