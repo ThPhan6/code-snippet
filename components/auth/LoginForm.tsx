@@ -29,8 +29,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({
     formState: { errors },
   } = useForm<LoginInput>({
     defaultValues: {
-      email: "demoA@example.com",
-      password: "demoa123",
+      email: "",
+      password: "",
     },
     resolver: zodResolver(loginSchema),
   });

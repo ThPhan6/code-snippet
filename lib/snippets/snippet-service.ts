@@ -272,19 +272,30 @@ export const getUserPublicProfile = (username: string) => {
   });
 
   const languages = new Set(publicSnippets.map((s) => s.language));
+  const languageArray = Array.from(languages);
+
+  // Find most used language
+  const languageCounts = publicSnippets.reduce((acc, snippet) => {
+    acc[snippet.language] = (acc[snippet.language] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  const mostUsedLanguage =
+    Object.entries(languageCounts).reduce((a, b) =>
+      languageCounts[a[0]] > languageCounts[b[0]] ? a : b
+    )[0] ||
+    languageArray[0] ||
+    "";
 
   return {
-    user: {
-      id: user.id,
-      name: user.name,
-      username: user.username,
-      createdAt: user.createdAt,
-    },
+    user: user, // Return full user object
     snippets: publicSnippets,
     stats: {
       totalSnippets: publicSnippets.length,
-      languages: Array.from(languages),
+      languages: languageArray,
       languageCount: languages.size,
+      mostUsedLanguage,
+      joinDate: user.createdAt,
     },
   };
 };

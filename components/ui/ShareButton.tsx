@@ -9,6 +9,7 @@ interface ShareButtonProps {
   title?: string;
   variant?: "default" | "icon" | "text";
   className?: string;
+  onCopy?: () => void;
 }
 
 export default function ShareButton({
@@ -16,6 +17,7 @@ export default function ShareButton({
   title = "Share",
   variant = "default",
   className = "",
+  onCopy,
 }: ShareButtonProps) {
   const [copied, setCopied] = useState(false);
 
@@ -26,6 +28,7 @@ export default function ShareButton({
     if (success) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+      onCopy?.();
     }
   };
 

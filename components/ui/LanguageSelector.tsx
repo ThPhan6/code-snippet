@@ -12,7 +12,7 @@ export const LanguageSelector: React.FC = () => {
       <select
         value={language}
         onChange={(e) => setLanguage(e.target.value as "en" | "vi")}
-        className="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
       >
         <option value="en">English</option>
         <option value="vi">Tiếng Việt</option>

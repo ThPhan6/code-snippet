@@ -1,11 +1,11 @@
 // JWT utility functions for authentication
 
 import jwt from "jsonwebtoken";
+import { ENV } from "../config/env";
 import { JWTPayload } from "../data/types";
 
-// Get JWT secret from environment variable with fallback
-const JWT_SECRET =
-  process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key-change-in-production";
+// Use centralized environment configuration
+const JWT_SECRET = ENV.JWT_SECRET;
 const JWT_EXPIRES_IN = "7d"; // Token expires in 7 days
 
 /**

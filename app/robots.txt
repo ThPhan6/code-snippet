@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://code-snippet-delta.vercel.app/sitemap.xml
+
+# Disallow private areas
+Disallow: /dashboard
+Disallow: /snippets/new
+Disallow: /snippets/*/edit
+Disallow: /login
+Disallow: /register
+Disallow: /settings
+
+# Allow public content
+Allow: /snippets/*/
+Allow: /languages/*
+Allow: /profile/*
+
+# Crawl delay (optional)
+Crawl-delay: 1

@@ -3,6 +3,7 @@
 import { useAuth } from "../lib/auth/auth-context";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { generateWebsiteStructuredData } from "../lib/seo/structured-data";
 
 export default function Home() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -18,13 +19,35 @@ export default function Home() {
     }
   }, [isAuthenticated, isLoading, router]);
 
+  const structuredData = generateWebsiteStructuredData();
+
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-      </div>
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+        </div>
+      </>
     );
   }
 
-  return null;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    </>
+  );
 }
